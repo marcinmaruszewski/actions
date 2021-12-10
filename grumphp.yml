@@ -1,0 +1,74 @@
+imports:
+    - { resource: /var/www/vendor/drupol/drupal-conventions/config/drupal8/grumphp.yml }
+
+grumphp:
+    git_hook_variables:
+        EXEC_GRUMPHP_COMMAND: 'docker-compose run --rm app'
+    tasks:
+        git_commit_message:
+            enforce_no_subject_trailing_period: false
+            max_subject_width: 0
+            max_body_width: 0
+            matchers:
+                '[ABC-123] Fix an issue with foo.': /^\[[A-Z]{1,10}\-\d{1,10}\]\s.{5,}\.$/
+        composer: ~
+        phpstan:
+            autoload_file: /var/www/vendor/autoload.php
+            level: 2
+            triggered_by:
+                - php
+                - module
+                - inc
+                - install
+                - theme
+                - profile
+            memory_limit: "-1"
+        phpcs:
+            standard:
+                - /var/www/vendor/drupal/coder/coder_sniffer/Drupal
+                - /var/www/vendor/drupal/coder/coder_sniffer/DrupalPractice
+            triggered_by:
+                - php
+                - module
+                - install
+                - profile
+                - test
+                - inc
+        phpparser:
+            kind: php7
+            visitors:
+                no_exit_statements: ~
+                forbidden_function_calls:
+                    blacklist:
+                        - 'var_dump'
+                        - 'print_r'
+                        - 'dpm'
+                        - 'dvm'
+                        - 'dpr'
+                        - 'dvr'
+                        - 'kpr'
+                        - 'dargs'
+                        - 'dd'
+                        - 'debug_backtrace'
+            triggered_by:
+                - php
+                - module
+                - install
+                - profile
+                - test
+                - inc
+        twigcs:
+            exclude:
+                - vendor
+        yamllint: ~
+        jsonlint: ~
+    testsuites:
+        git_pre_commit:
+            tasks:
+                - git_commit_message
+                - composer
+                - phpstan
+                - phpcs
+                - yamllint
+                - jsonlint
+                - twigcs

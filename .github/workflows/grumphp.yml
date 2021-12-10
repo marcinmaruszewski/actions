@@ -17,4 +17,4 @@ jobs:
       - name: Bulid app image
         run: docker-compose build app
       - name: Run tests
-        run: docker-compose run --rm app grumphp run --testsuite=git_pre_commit
+        run: docker-compose run --rm app vendor/phpro/grumphp/bin/grumphp run --testsuite=git_pre_commit

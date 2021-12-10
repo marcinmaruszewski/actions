@@ -12,8 +12,8 @@ jobs:
       COMPOSE_FILE: docker-compose.yml
 
     steps:
-      - name: Checkout code
-        use: actions/checkout@v2
+      - name: Get code
+        uses: actions/checkout@v2
       - name: Bulid app image
         run: docker-compose build app
       - name: Run tests

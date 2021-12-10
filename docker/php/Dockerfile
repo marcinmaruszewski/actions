@@ -1,13 +1,15 @@
 FROM php:7.4-fpm-alpine3.13
-ENV PATH="/var/www/html/vendor/bin:${PATH}"
+ENV PATH="/var/www/vendor/bin:${PATH}"
 
 RUN addgroup -S host -g 1000 && adduser -S host -G www-data -G host -u 1000
 RUN apk --no-cache add git
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 
-USER host
 
-COPY ./ /var/www/html
+COPY . /var/www
+WORKDIR /var/www
 
-RUN composer install
+RUN composer install --no-interaction --no-ansi
+
+#USER host

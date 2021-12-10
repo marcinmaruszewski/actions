@@ -1,5 +1,5 @@
 imports:
-    - { resource: /var/www/vendor/drupol/drupal-conventions/config/drupal8/grumphp.yml }
+    - { resource: /var/www/html/vendor/drupol/drupal-conventions/config/drupal8/grumphp.yml }
 
 grumphp:
     git_hook_variables:
@@ -13,7 +13,7 @@ grumphp:
                 '[ABC-123] Fix an issue with foo.': /^\[[A-Z]{1,10}\-\d{1,10}\]\s.{5,}\.$/
         composer: ~
         phpstan:
-            autoload_file: /var/www/vendor/autoload.php
+            autoload_file: /var/www/html/vendor/autoload.php
             level: 2
             triggered_by:
                 - php
@@ -25,8 +25,8 @@ grumphp:
             memory_limit: "-1"
         phpcs:
             standard:
-                - /var/www/vendor/drupal/coder/coder_sniffer/Drupal
-                - /var/www/vendor/drupal/coder/coder_sniffer/DrupalPractice
+                - /var/www/html/vendor/drupal/coder/coder_sniffer/Drupal
+                - /var/www/html/vendor/drupal/coder/coder_sniffer/DrupalPractice
             triggered_by:
                 - php
                 - module

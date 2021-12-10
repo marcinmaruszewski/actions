@@ -1,0 +1,18 @@
+{
+    "name": "marcinmaruszewski/actions",
+    "type": "project",
+    "license": "Free",
+    "authors": [
+        {
+            "name": "Marcin Maruszewski",
+            "email": "kontakt@marcinmaruszewski.me"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpro/grumphp": "1.3.*",
+        "phpspec/prophecy-phpunit": "^2",
+        "drupol/drupal-conventions": "^2.0",
+        "mglaman/phpstan-drupal": "^1.1"
+    }
+}

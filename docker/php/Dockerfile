@@ -6,8 +6,10 @@ RUN apk --no-cache add git
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 
-USER host
 
-COPY ./ /var/www/html
+COPY . /var/www
+WORKDIR /var/www
 
-RUN composer install
+RUN composer install --no-interaction --no-ansi
+
+#USER host

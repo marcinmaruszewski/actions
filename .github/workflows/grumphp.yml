@@ -1,0 +1,20 @@
+name: GrumPHP
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Run GrumPHP tests
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: docker-compose.yml
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v2
+      - name: Bulid app image
+        run: docker-compose build app
+      - name: Run tests
+        run: docker-compose run --rm app grumphp run --testsuite=git_pre_commit

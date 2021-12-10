@@ -1,7 +1,8 @@
 {
     "name": "marcinmaruszewski/actions",
     "type": "project",
-    "license": "Free",
+    "license": "MIT",
+    "description": "Sandbox project for Github actions.",
     "authors": [
         {
             "name": "Marcin Maruszewski",

@@ -1,0 +1,28 @@
+name: Docker
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build development image
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: docker-compose.yml
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v2
+      - name: Echo
+        run: echo ${{ secrets.CR_PAT }}
+      - name: Login to ghcr.io
+        run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u marcinmaruszewski --password-stdin
+      - name: Pull image
+        run: docker pull ghcr.io/marcinmaruszewski/actions:latest --ignore-pull-failures || true
+      - name: Build image
+        run: docker build --cache-from ghcr.io/marcinmaruszewski/actions:latest -f docker/php/Dockerfile -t ghcr.io/marcinmaruszewski/actions:latest -t actions_app .
+      - name: Push image to ghcr.io
+        run: docker push ghcr.io/marcinmaruszewski/actions:latest
+      - name: Run
+        run: docker run ghcr.io/marcinmaruszewski/actions vendor/bin/grumphp
